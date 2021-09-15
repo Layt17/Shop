@@ -1,0 +1,47 @@
+<!-- ниже унаследование от шаблона-->
+{% extends 'base.html' %}
+<!--загрузка тегов -->
+{% load specifications %}
+
+
+<!--Начало блока -->
+{% block content %}
+
+<!--breadcrumb,https://getbootstrap.com/docs/4.0/components/breadcrumb/
+Это панель сверху с тремя кнопками-->
+ <nav aria-label="breadcrumb" class="mt-4">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'base' %}">Главная</a></li>
+    <li class="breadcrumb-item"><a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
+  </ol>
+    </nav>
+<!--end breadcrumb-->
+<div class="row">
+
+    <div class="col-md-4">
+        <img src="{{ product.image.url }}" class="img-fluid">
+    </div>
+    <div>
+        <h3>{{product.title}}</h3>
+        <p>Цена - {{product.price}} руб.</p>
+        <p>Описание: {{product.description}}</p>
+        <hr>
+        <a href="{% url 'add_to_cart' ct_model=ct_model slug=product.slug %}"><button class="btn btn-danger">Добавить в корзину</button></a>
+    </div>
+
+</div>
+
+<p class="mt-4">Характеристики:</p>
+<!--ниже идет фильтр, который генерирует таблицу на странице товара-->
+{{product|product_spec}}
+
+<!--ниже идет условие, которое генерирует таблицу на странице товара-->
+<!--    {% if product.category.slug == 'notebooks' %}-->
+<!--        {% include 'notebook_specification.html' %}-->
+<!--    {% else %}-->
+<!--        {% include 'smartphone_specification.html' %}-->
+<!--    {% endif %}-->
+
+<!--Конец блока-->
+{% endblock content %}
