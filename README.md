@@ -8,7 +8,7 @@
 
     -pip install -r requirements.txt
 
-    -python makemigrations
+    -python manage.py makemigrations
 
     -python manage.py migrate
 
